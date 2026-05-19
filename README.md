@@ -36,3 +36,62 @@ vim.pack.add({
 -- gives you a user_command ( see :help nvim_create_user_command() )
 require('printTreeTable').setup()
 ```
+
+### Use in CmdLine
+
+```vim cmdline
+:lua LualineTable = require('lualine').get_config()
+:PrintTreeTable LualineTable
+```
+
+<!-- markdownlint-disable MD010 -->
+
+```txt output
+-------------- TreeTable: LualineTable ------------------
+
+sections
+	lualine_a
+		1
+			= mode
+	lualine_z
+		1
+			= function: 0x7fccd06f8b08
+		2
+			= function: 0x7fccd06f8b38
+	lualine_y
+		1
+			= function: 0x7fccd06f8a78
+	lualine_x
+		1
+			= lsp_status
+		2
+			= filetype
+	lualine_c
+		1
+			= branch
+		2
+			= diff
+		3
+			= diagnostics
+	lualine_b
+		1
+			= filename
+extensions
+	1
+		= neo-tree
+	2
+		= lazy
+	3
+		= man
+	4
+		= mason
+	5
+		= nvim-dap-ui
+
+ ... ETC ...
+```
+
+## TODO
+
+- [ ] Somehow print function structure.
+- [ ] Make the tree prettier (prolly replace indent with ascii).
