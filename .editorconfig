@@ -1,0 +1,18 @@
+# INFO: [Structure]
+#       # example = comment
+#       default = true
+
+# topmost Editorconfig?
+root = true
+
+[*]
+
+indent_style = space
+indent_size = 4
+
+# [*.goon]
+# indent_style = tab
+
+# [*.{foo,bar}]
+# indent_size = 6
+# indent_style = tab

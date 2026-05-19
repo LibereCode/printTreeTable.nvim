@@ -1,0 +1,18 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "completion": {
+        "autoRequire": true,
+        "callSnippet": "Both"
+    },
+    "diagnostics": {
+        "globals": [],
+        "workspaceDelay": 567
+    },
+    "hint": {
+        "enable": true
+    },
+    "runtime": {
+        "version": "LuaJIT",
+        "requirePattern": ["lua/?.lua", "lua/?/init.lua"]
+    }
+}
