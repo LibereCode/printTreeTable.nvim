@@ -1,5 +1,8 @@
 # printTreeTable.nvim
 
+> [!NOTE]
+> Just use `vim.print()`...
+
 Iterate recursively over a lua-table and print out all pairs and values,
 formatted like [cli-cmd `tree`](https://oldmanprogrammer.net/source.php?dir=projects/tree)
 

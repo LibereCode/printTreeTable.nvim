@@ -32,6 +32,8 @@ end
 ---Create _user_command_ `PrintTreeTable`
 M.setup = function()
     vim.api.nvim_create_user_command("PrintTreeTable", function(opts)
+        print("Ooooorrr... you can just use the really simple cmd:")
+        print("`:lua vim.print(yourTableHere)`")
         local tableName = opts.args
         local tableIn = _G[tableName]
         print([[
