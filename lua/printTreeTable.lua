@@ -26,6 +26,8 @@ end
 M.print = function(table)
     if type(table) == "table" then
         M.ifTableFunc(table, M.ifTableFunc)
+    else
+        vim.api.nvim_echo({ { "This is not a table. It should be" } }, true, { err = true })
     end
 end
 
@@ -34,11 +36,11 @@ M.setup = function()
     vim.api.nvim_create_user_command("PrintTreeTable", function(opts)
         print("Ooooorrr... you can just use the really simple cmd:")
         print("`:lua vim.print(yourTableHere)`")
-        local tableName = opts.args
-        local tableIn = _G[tableName]
+        local tableName = opts.args -- parse argv
+        local tableIn = _G[tableName] -- grab the global
         print([[
 -------------- TreeTable: ]] .. tableName .. " ------------------\n")
-        M.print(tableIn)
+        M.print(tableIn) -- the JUICE
     end, {
         nargs = 1,
         desc = [[Print Tree-structure of a table-nested table.

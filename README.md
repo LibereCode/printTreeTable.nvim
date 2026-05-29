@@ -40,6 +40,29 @@ vim.pack.add({
 require('printTreeTable').setup()
 ```
 
+### Use with lua
+
+```lua file.lua
+local tableToPrint = {
+    just = 'a regular',
+    normal = 'mf',
+    aNumber = 123,
+}
+require('printTreeTable').print(tableToPrint)
+```
+
+will return:
+<!-- markdownlint-disable MD010 -->
+
+```txt output
+just
+	= a regular
+aNumber
+	= 123
+normal
+	= mf
+```
+
 ### Use in CmdLine
 
 ```vim cmdline
@@ -93,6 +116,8 @@ extensions
 
  ... ETC ...
 ```
+
+I recommend to use the lua version honestly, a lot cleaner...
 
 ## TODO
 
