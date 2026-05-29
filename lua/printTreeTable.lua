@@ -32,19 +32,34 @@ end
 ---@return string
 M.ifTableFunc = function(stringBlock, keyName, value, func, tabs)
     tabs = tabs or 0
-    local tabString = string.rep("  ", tabs)
+
+    ---@param symbols boolean Apply extra sigils like "┗"? (DEFAULT: true)
+    ---@return string
+    local function tabString(symbols)
+        local returnString = string.rep("  ", tabs)
+        if symbols then
+            returnString = returnString .. "┗━" -- "box drawing"
+        end
+        return returnString
+    end
 
     if type(value) == "table" then
         if keyName ~= "" then
-            keyName = tabString .. "┗" .. keyName .. " = "
+            keyName = tabString(true) .. keyName .. " = "
         end
-        stringBlock = stringBlock .. keyName .. "{\n"
-        for key, val in pairs(value) do
-            stringBlock = func(stringBlock, key, val, func, tabs + 1)
+        stringBlock = stringBlock .. keyName .. "{"
+        if next(value) then
+            stringBlock = stringBlock .. "\n"
+            for key, val in pairs(value) do
+                stringBlock = func(stringBlock, key, val, func, tabs + 1)
+            end
+            if keyName ~= "" then
+                stringBlock = stringBlock .. tabString(false) .. "  "
+            end
         end
-        stringBlock = stringBlock .. tabString .. " }\n"
+        stringBlock = stringBlock .. "}\n"
     else
-        stringBlock = stringBlock .. tabString .. "┗" .. keyName .. " = " .. tostring(value) .. "\n"
+        stringBlock = stringBlock .. tabString(true) .. keyName .. " = " .. tostring(value) .. "\n"
     end
     return stringBlock
 end
