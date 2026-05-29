@@ -44,23 +44,26 @@ require('printTreeTable').setup()
 
 ```lua file.lua
 local tableToPrint = {
-    just = 'a regular',
-    normal = 'mf',
+    just = "a regular",
+    everyday = {
+        normal = "mf",
+    },
     aNumber = 123,
 }
-require('printTreeTable').print(tableToPrint)
+require("printTreeTable").print(tableToPrint)
 ```
 
 will return:
 <!-- markdownlint-disable MD010 -->
 
 ```txt output
-just
-	= a regular
-aNumber
-	= 123
-normal
-	= mf
+{
+  ┗everyday = {
+    ┗normal = mf
+   }
+  ┗just = a regular
+  ┗aNumber = 123
+ }
 ```
 
 ### Use in CmdLine
@@ -75,44 +78,37 @@ normal
 ```txt output
 -------------- TreeTable: LualineTable ------------------
 
-sections
-	lualine_a
-		1
-			= mode
-	lualine_z
-		1
-			= function: 0x7fccd06f8b08
-		2
-			= function: 0x7fccd06f8b38
-	lualine_y
-		1
-			= function: 0x7fccd06f8a78
-	lualine_x
-		1
-			= lsp_status
-		2
-			= filetype
-	lualine_c
-		1
-			= branch
-		2
-			= diff
-		3
-			= diagnostics
-	lualine_b
-		1
-			= filename
-extensions
-	1
-		= neo-tree
-	2
-		= lazy
-	3
-		= man
-	4
-		= mason
-	5
-		= nvim-dap-ui
+{
+  ┗tabline = {
+   }
+  ┗extensions = {
+    ┗1 = neo-tree
+    ┗2 = lazy
+    ┗3 = man
+    ┗4 = mason
+    ┗5 = nvim-dap-ui
+   }
+  ┗winbar = {
+   }
+  ┗options = {
+    ┗refresh = {
+      ┗tabline = 1000
+      ┗statusline = 1000
+      ┗winbar = 1000
+      ┗refresh_time = 16
+      ┗events = {
+        ┗1 = WinEnter
+        ┗2 = BufEnter
+        ┗3 = BufWritePost
+        ┗4 = SessionLoadPost
+        ┗5 = FileChangedShellPost
+        ┗6 = VimResized
+        ┗7 = Filetype
+        ┗8 = CursorMoved
+        ┗9 = CursorMovedI
+        ┗10 = ModeChanged
+       }
+     }
 
  ... ETC ...
 ```
