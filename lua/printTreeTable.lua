@@ -7,25 +7,54 @@ local M = {}
 ---@param value any
 ---@param func function
 ---@param tabs? integer
-M.ifTableFunc = function(value, func, tabs)
+M.ref = function(value, func, tabs)
     tabs = tabs or 0
     local tabString = string.rep("	", tabs)
 
     if type(value) == "table" then
+        print(tabString .. "{")
         for key, val in pairs(value) do
             print(tabString .. key)
             func(val, func, tabs + 1)
         end
+        print(tabString .. "}")
     else
         print(tabString .. "= " .. tostring(value))
     end
+end
+
+---Used in _user_command_ `TreeTable`
+---@param stringBlock string
+---@param keyName string
+---@param value any
+---@param func function
+---@param tabs? integer
+---@return string
+M.ifTableFunc = function(stringBlock, keyName, value, func, tabs)
+    tabs = tabs or 0
+    local tabString = string.rep("  ", tabs)
+
+    if type(value) == "table" then
+        if keyName ~= "" then
+            keyName = tabString .. "┗" .. keyName .. " = "
+        end
+        stringBlock = stringBlock .. keyName .. "{\n"
+        for key, val in pairs(value) do
+            stringBlock = func(stringBlock, key, val, func, tabs + 1)
+        end
+        stringBlock = stringBlock .. tabString .. " }\n"
+    else
+        stringBlock = stringBlock .. tabString .. "┗" .. keyName .. " = " .. tostring(value) .. "\n"
+    end
+    return stringBlock
 end
 
 ---**USE:** `require('printTreeTable').print(<your_tabel>)`
 ---@param table table Any (semi|kinda|MEGA)-arbitrary lua-table you want to iterate
 M.print = function(table)
     if type(table) == "table" then
-        M.ifTableFunc(table, M.ifTableFunc)
+        local stringBlock = M.ifTableFunc("", "", table, M.ifTableFunc)
+        print(stringBlock)
     else
         vim.api.nvim_echo({ { "This is not a table. It should be" } }, true, { err = true })
     end
