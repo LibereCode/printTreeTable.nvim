@@ -66,7 +66,7 @@ require("printTreeTable").print(tableToPrint)
 ### Use in CmdLine
 
 ```vim cmdline
-:[lua](2026-05-29_lua.md) LualineTable = require('lualine').get_config()
+:lua LualineTable = require('lualine').get_config()
 :PrintTreeTable LualineTable
 
 " OUTPUT
